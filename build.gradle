@@ -1,0 +1,63 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.1'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+    id 'io.qameta.allure' version '2.8.1'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+    ext {
+        allureVersion = '2.13.6'
+//        logBackVersion='1.2.3'
+//        junitVersion='5.4.2'
+//        slf4jVersion='1.7.30'
+//        assertJVersion='3.18.0'
+//        graphqlApollo = '2.4.1'
+    }
+}
+
+allure {
+    autoconfigure = true
+    aspectjweaver = true
+    version = allureVersion
+    
+    clean = true
+    
+    useJUnit5 {
+        version = allureVersion
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'com.codeborne:selenide:5.17.2'
+    implementation("org.assertj:assertj-core:3.18.0")
+    implementation "io.qameta.allure:allure-java-commons:$allureVersion"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        testLogging.showStackTraces = true
+        testLogging.showStandardStreams = true
+        testLogging.events "standardOut", "started", "passed", "skipped", "failed"
+        testLogging.exceptionFormat "full"
+    }
+    ignoreFailures = true
+}
