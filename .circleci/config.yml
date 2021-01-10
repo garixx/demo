@@ -1,6 +1,6 @@
 version: 2
-orbs:
-  allure: ayte/allure@0.1.3
+#orbs:
+#  allure: ayte/allure@0.1.3
 jobs:
   build:
     docker:
@@ -40,15 +40,16 @@ jobs:
       - attach_workspace:
           at: .
       - checkout
-      - allure/install
+      - ./gradlew downloadAllure
       - run: ./gradlew clean test
-      - allure/report
+      #- allure/report
+      - run: ./gradlew allureReport
 
       - store_test_results:
           path: ./junit
 
       - store_artifacts:
-          path: ./allure-report
+          path: ./allure-results
 
 workflows:
   version: 2
