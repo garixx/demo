@@ -40,7 +40,7 @@ jobs:
       - attach_workspace:
           at: .
       - checkout
-      - ./gradlew downloadAllure
+      - run: ./gradlew downloadAllure
       - run: ./gradlew clean test
       #- allure/report
       - run: ./gradlew allureReport
