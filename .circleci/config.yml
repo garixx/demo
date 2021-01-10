@@ -46,10 +46,10 @@ jobs:
       - run: ./gradlew allureReport
 
       - store_test_results:
-          path: ./junit
+          path: build/test-results/test
 
       - store_artifacts:
-          path: ./allure-results
+          path: build/reports/allure-report
 
 workflows:
   version: 2
